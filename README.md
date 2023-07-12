@@ -19,7 +19,8 @@ const store = createStore(
 
 ```
 
-Note the `dynamicReducerEnhancer` function takes two options. `createDynamicReducer` is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs. `reduceReducers` is also a high order reducer the purpose of which is to combine static reducer and the dynamic reducer returned from `createDynamicReducer` call.
+Note the `dynamicReducerEnhancer` function takes two options:
+* `createDynamicReducer` options is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs.
 
 ```js
     const store = createStore(
@@ -60,7 +61,9 @@ This tree data structure is then traversed to create reducer.
  )
 ```
 
-By default `reduceReducers` HOC uses `reduceReducers` function from [reduce-reducers](https://www.npmjs.com/package/reduce-reducers) package
+* `reduceReducers` option is also a high order reducer with the purpose of combining static reducer (the one you passed as the first option to `createStore` function) and the dynamic reducer returned from `createDynamicReducer` call.
+
+By default `reduceReducers` HOC uses `reduceReducers` function from [reduce-reducers](https://www.npmjs.com/package/reduce-reducers) package.
 
 ### Redux DevTools
 If you're using redux devtools, it's **important to set `shouldHotReload` to false**.  This is because otherwise, redux devtools will re-dispatch previous actions when reducers are attached.
