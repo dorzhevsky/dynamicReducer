@@ -6,7 +6,7 @@ npm install dynamic-reducer # (or yarn add dynamic-reducer)
 ```
 
 ### Setting up the redux store
-The redux store should be enhanced to allow package to work properly.
+The redux store should be enhanced to allow library to work properly.
 ```js
 import { createStore } from "redux";
 import { dynamicReducerEnhancer } from "dynamic-reducer";
