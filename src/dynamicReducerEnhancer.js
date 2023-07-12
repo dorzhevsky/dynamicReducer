@@ -7,8 +7,7 @@ import { DYNAMIC_REDUCER_ATTACHED } from "./constants";
 import dynamicReducer from "./dynamicReducer";
 
 const dynamicReducerEnhancer = (
-  { wrapReducer, createDynamicReducer, reduceReducers } = {
-    wrapReducer: dynamicReducer,
+  { createDynamicReducer, reduceReducers } = {
     createDynamicReducer: defaultCreateDynamicReducer,
     reduceReducers: defaultReduceReducers
   }
@@ -33,7 +32,7 @@ const dynamicReducerEnhancer = (
           }
           return;
         }
-        attachedReducers.set(key, wrapReducer(key, reducerToAttach));
+        attachedReducers.set(key, dynamicReducer(key, reducerToAttach));
         const newReducer = reduceReducers(
           reducer,
           createDynamicReducer(Object.fromEntries(attachedReducers))

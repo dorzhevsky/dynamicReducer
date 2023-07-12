@@ -2,6 +2,12 @@ import { createStore } from "redux";
 import identity from "lodash/identity";
 import dynamicReducerEnhancer from "../dynamicReducerEnhancer";
 import { DYNAMIC_REDUCER_ATTACHED } from "../constants";
+import dynamicReducer from "../dynamicReducer";
+
+jest.mock("../dynamicReducer");
+
+const mockDynamicReducer = jest.fn(() => identity);
+dynamicReducer.mockImplementation(mockDynamicReducer);
 
 describe("dynamicReducerEnhancer", () => {
   it("dynamicReducerEnhancer должен обогащать стор доп. функцией attachReducer", () => {
@@ -11,16 +17,14 @@ describe("dynamicReducerEnhancer", () => {
   });
 
   const testAttachReducer = (attach, expectedKey) => {
-    it("Attach редьюсера с использованием строкового апи", () => {
+    it("Attach редьюсера с использованием строкового апи", () => {      
       const staticReducer = state => state;
       const createDynamicReducer = jest.fn(() => identity);
       const reduceReducers = jest.fn(() => identity);
-      const wrapReducer = jest.fn(() => identity);
       const store = createStore(
         staticReducer,
         undefined,
         dynamicReducerEnhancer({
-          wrapReducer,
           createDynamicReducer,
           reduceReducers
         })
@@ -32,9 +36,9 @@ describe("dynamicReducerEnhancer", () => {
 
       attach(store, dynamicReducer);
 
-      expect(wrapReducer).toHaveBeenCalledWith(expectedKey, dynamicReducer);
+      expect(mockDynamicReducer).toHaveBeenCalledWith(expectedKey, dynamicReducer);
       expect(createDynamicReducer).toHaveBeenCalledWith({
-        [expectedKey]: wrapReducer.mock.results[0].value
+        [expectedKey]: mockDynamicReducer.mock.results[0].value
       });
       expect(reduceReducers).toHaveBeenCalledWith(
         staticReducer,
