@@ -19,8 +19,7 @@ const store = createStore(
 
 ```
 
-Note the `dynamicReducerEnhancer` function takes two options:
-* `createDynamicReducer` options is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs.
+Note the `dynamicReducerEnhancer` function takes options object as a parameter:
 
 ```js
     const store = createStore(
@@ -32,6 +31,8 @@ Note the `dynamicReducerEnhancer` function takes two options:
     })
     );
 ```
+
+* `createDynamicReducer` options is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs.
 
 By default `createDynamicReducer` HOC works the following way.
 Imagine we have several dynamically attached reducers as key-reducer pairs.
