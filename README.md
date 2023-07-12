@@ -32,7 +32,35 @@ Note the `dynamicReducerEnhancer` function takes two options. `createDynamicRedu
     );
 ```
 
+By default `createDynamicReducer` HOC works the following way.
+Imagine we have several dynamically attached reducers as key-reducer pairs.
+
+```js
+{"one": r1, "one.two": r2, "one.three": r3}
+```
+Internally library generates tree structure similar to the one below.
+
 ![alt text](https://github.com/dorzhevsky/dynamicReducer/blob/master/img/sample.png)
+
+This tree data structure is then traversed to create reducer.
+
+```js
+ const reducer = combineReducers(
+  {
+    one: reduceReducers(
+      r1,
+      combineReducers(
+        {
+          two: r2,
+          three: r3
+        }
+      )
+    )
+  }
+ )
+```
+
+By default `reduceReducers` HOC uses `reduceReducers` function from [reduce-reducers](https://www.npmjs.com/package/reduce-reducers) package
 
 ### Redux DevTools
 If you're using redux devtools, it's **important to set `shouldHotReload` to false**.  This is because otherwise, redux devtools will re-dispatch previous actions when reducers are attached.
