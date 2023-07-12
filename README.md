@@ -32,6 +32,7 @@ Note the `dynamicReducerEnhancer` function takes two options. `createDynamicRedu
     );
 ```
 
+![alt text](https://github.com/dorzhevsky/dynamicReducer/blob/master/img/sample.png)
 
 ### Redux DevTools
 If you're using redux devtools, it's **important to set `shouldHotReload` to false**.  This is because otherwise, redux devtools will re-dispatch previous actions when reducers are attached.
