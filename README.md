@@ -42,7 +42,7 @@ Imagine we have several dynamically attached reducers as key-reducer pairs.
 ```
 Internally library generates tree structure similar to the one below.
 
-![alt text](https://github.com/dorzhevsky/dynamicReducer/blob/master/img/sample.png)
+![alt text](https://github.com/dorzhevsky/redux-attachable-reducer/blob/master/img/sample.png?raw=true)
 
 This tree data structure is then traversed to create reducer.
 
