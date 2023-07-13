@@ -109,7 +109,3 @@ class YourComponent extends React.Component {
 export default attachReducer({path: { to: { store: { key: reducer }} })(YourComponent)
 
 ```
-
-## Documentation
-
-[Documentation](README.md)
