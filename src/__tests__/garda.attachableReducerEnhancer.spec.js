@@ -17,7 +17,7 @@ describe("attachableReducerEnhancer", () => {
   });
 
   const testAttachReducer = (attach, expectedKey) => {
-    it("Attach редьюсера", () => {      
+    it("Attach редьюсера", () => {
       const staticReducer = state => state;
       const combineAttachedReducers = jest.fn(() => identity);
       const combineAll = jest.fn(() => identity);

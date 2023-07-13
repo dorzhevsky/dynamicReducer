@@ -7,28 +7,32 @@ import combineReducers from "./combineReducers";
 import { KEY_PARTS_SEPARATOR } from "./constants";
 
 const attachedReducersTree = () => {
+  let root = null;
 
-  const _createNode = (key = null) => {
+  const createNode = (key = null) => {
     return { key, children: [] };
   };
 
-  const _insertNodeIfNotExists = (key, parent) => {
+  const insertNodeIfNotExists = (key, parent) => {
     let child = find(parent.children, { key });
     if (child) {
       return child;
     }
-    child = _createNode(key);
+    child = createNode(key);
     parent.children.push(child);
     return child;
   };
 
-  const _createReducer = node => {
+  const createReducer = node => {
+    if (!node) {
+      return createReducer(root);
+    }
     if (node.children.length > 0) {
       const reducersMap = reduce(
         node.children,
         (o, e) => {
           const obj = o;
-          obj[e.key] = _createReducer(e);
+          obj[e.key] = createReducer(e);
           return obj;
         },
         {}
@@ -44,21 +48,17 @@ const attachedReducersTree = () => {
     const splitItems = split(key, KEY_PARTS_SEPARATOR);
     let parent = root;
     forEach(splitItems, e => {
-      parent = _insertNodeIfNotExists(e, parent);
+      parent = insertNodeIfNotExists(e, parent);
     });
     parent.reducer = reducer;
   };
 
-  const createReducer = () => {
-    return _createReducer(root);
-  };
-
-  const root = _createNode();
+  root = createNode();
 
   return {
     addReducer,
     createReducer
-  }
-}
+  };
+};
 
 export default attachedReducersTree;

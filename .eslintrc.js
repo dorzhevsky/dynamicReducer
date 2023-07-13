@@ -10,8 +10,7 @@ module.exports = {
     "airbnb",
     "prettier",
     "plugin:jest/recommended",
-    "plugin:lodash/recommended",
-    "plugin:storybook/recommended"
+    "plugin:lodash/recommended"
   ],
   parser: "@babel/eslint-parser",
   parserOptions: {
