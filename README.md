@@ -12,9 +12,9 @@ import { createStore } from "redux";
 import { attachableReducerEnhancer } from "redux-attachable-reducer";
 
 const store = createStore(
-    staticReducer,
-    initialState,
-    attachableReducerEnhancer()
+  staticReducer,
+  initialState,
+  attachableReducerEnhancer()
 );
 
 ```
@@ -22,14 +22,14 @@ const store = createStore(
 Note the `attachableReducerEnhancer` function takes options object as a parameter:
 
 ```js
-    const store = createStore(
-    staticReducer,
-    initialState,
-    attachableReducerEnhancer({
-        combineAttachedReducers,
-        combineAll
-    })
-    );
+const store = createStore(
+  staticReducer,
+  initialState,
+  attachableReducerEnhancer({
+      combineAttachedReducers,
+      combineAll
+  })
+);
 ```
 
 * `combineAttachedReducers` option is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs.
@@ -47,19 +47,18 @@ Internally library generates tree structure similar to the one below.
 This tree data structure is then traversed to create reducer.
 
 ```js
- const reducer = combineReducers(
-  {
-    one: reduceReducers(
-      r1,
-      combineReducers(
-        {
-          two: r2,
-          three: r3
-        }
-      )
+const reducer = combineReducers(
+{
+  one: reduceReducers(
+    r1,
+    combineReducers(
+      {
+        two: r2,
+        three: r3
+      }
     )
-  }
- )
+  )
+})
 ```
 
 * `combineAll` option is also a high order reducer with the purpose of combining static reducer (the one you passed as the first option to `createStore` function) and the dynamic reducer returned from `combineAttachedReducers` call.
