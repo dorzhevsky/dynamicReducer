@@ -83,7 +83,7 @@ const store = createStore(reducer, composeEnhancers(
 ```
 
 ### Attaching your reducer
-After setting up the store, you can start attaching reducers using high order component `withReducer`.
+After setting up the store, you can start attaching reducers using high order component `attachReducer`.
 ```js
 import { attachReducer } from "redux-attachable-reducer";
 
