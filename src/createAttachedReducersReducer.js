@@ -7,7 +7,7 @@ import reduce from "lodash/reduce";
 import noop from "lodash/noop";
 import combineReducers from "./combineReducers";
 
-class DynamicReducersTree {
+class AttachedReducersTree {
   constructor() {
     this.root = this.createChild();
   }
@@ -58,16 +58,16 @@ class DynamicReducersTree {
   };
 }
 
-const createDynamicReducer = map => {
+const createAttachedReducersReducer = map => {
   const k = keys(map);
   if (!k.length) {
     return noop;
   }
-  const tree = new DynamicReducersTree();
+  const tree = new AttachedReducersTree();
   forEach(map, (d, key) => {
     tree.addReducer(key, d);
   });
   return tree.createReducer();
 };
 
-export default createDynamicReducer;
+export default createAttachedReducersReducer;

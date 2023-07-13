@@ -2,8 +2,8 @@ import { ReactReduxContext } from "react-redux";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
 
-const withReducer = reducer => Comp => {
-  class WithReducerWrapper extends React.Component {
+const attachReducer = reducer => Comp => {
+  class Wrapper extends React.Component {
     // eslint-disable-next-line camelcase
     UNSAFE_componentWillMount = () => {
       const { store, reducer: r } = this.props;
@@ -26,7 +26,7 @@ const withReducer = reducer => Comp => {
     };
   }
 
-  WithReducerWrapper.propTypes = {
+  Wrapper.propTypes = {
     store: PropTypes.shape({
       attachReducer: PropTypes.func
     }),
@@ -37,11 +37,11 @@ const withReducer = reducer => Comp => {
   return props => {
     const { store } = useContext(ReactReduxContext);
     return (
-      <WithReducerWrapper store={store} reducer={reducer}>
+      <Wrapper store={store} reducer={reducer}>
         <Comp {...props} />
-      </WithReducerWrapper>
+      </Wrapper>
     );
   };
 };
 
-export default withReducer;
+export default attachReducer;

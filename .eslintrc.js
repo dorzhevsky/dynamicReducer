@@ -107,9 +107,6 @@ module.exports = {
     "react/jsx-props-no-spreading": "off"
   },
   overrides: [
-    {
-      files: ["*/**/garda.*"]
-    }
   ],
   settings: {
     react: {

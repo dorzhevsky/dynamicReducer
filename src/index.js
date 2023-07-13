@@ -1,6 +1,4 @@
-import withReducer from "./withReducer";
-import dynamicReducerEnhancer from "./dynamicReducerEnhancer";
+import attachReducer from "./attachReducer";
+import attachableReducerEnhancer from "./attachableReducerEnhancer";
 
-export default withReducer;
-
-export { dynamicReducerEnhancer };
+export { attachReducer, attachableReducerEnhancer };

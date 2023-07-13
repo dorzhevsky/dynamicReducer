@@ -1,15 +1,15 @@
-import defaultReduceReducers from "reduce-reducers";
+import _reduceReducers from "reduce-reducers";
 import keys from "lodash/keys";
 import map from "lodash/map";
 import isFunction from "lodash/isFunction";
-import defaultCreateDynamicReducer from "./createDynamicReducer";
-import { DYNAMIC_REDUCER_ATTACHED } from "./constants";
-import dynamicReducer from "./dynamicReducer";
+import _createAttachedReducersReducer from "./createAttachedReducersReducer";
+import { ATTACHABLE_REDUCER_ATTACHED } from "./constants";
+import createAttachedReducer from "./createAttachedReducer";
 
-const dynamicReducerEnhancer = (
-  { createDynamicReducer, reduceReducers } = {
-    createDynamicReducer: defaultCreateDynamicReducer,
-    reduceReducers: defaultReduceReducers
+const attachableReducerEnhancer = (
+  { createAttachedReducersReducer, reduceReducers } = {
+    createAttachedReducersReducer: _createAttachedReducersReducer,
+    reduceReducers: _reduceReducers
   }
 ) => createStore => (reducer, ...other) => {
   const store = createStore(reducer, ...other);
@@ -32,13 +32,13 @@ const dynamicReducerEnhancer = (
           }
           return;
         }
-        attachedReducers.set(key, dynamicReducer(key, reducerToAttach));
+        attachedReducers.set(key, createAttachedReducer(key, reducerToAttach));
         const newReducer = reduceReducers(
           reducer,
-          createDynamicReducer(Object.fromEntries(attachedReducers))
+          createAttachedReducersReducer(Object.fromEntries(attachedReducers))
         );
         store.replaceReducer(newReducer);
-        store.dispatch({ type: DYNAMIC_REDUCER_ATTACHED, key });
+        store.dispatch({ type: ATTACHABLE_REDUCER_ATTACHED, key });
         return;
       }
       const newItems = map(keys(obj), k => {
@@ -53,4 +53,4 @@ const dynamicReducerEnhancer = (
   return store;
 };
 
-export default dynamicReducerEnhancer;
+export default attachableReducerEnhancer;
