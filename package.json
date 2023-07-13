@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "build": "babel src --out-dir lib --ignore src/__tests__/*"
+    "build": "babel src --delete-dir-on-start --out-dir lib --ignore src/__tests__/*"
   },
   "keywords": [],
   "author": "Dmitry Orzhevsky",
