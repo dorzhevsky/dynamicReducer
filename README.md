@@ -112,4 +112,4 @@ export default attachReducer({path: { to: { store: { key: reducer }} })(YourComp
 
 ## Documentation
 
-![Documentation](https://github.com/dorzhevsky/redux-attachable-reducer/blob/master/README.md)
+[Documentation](README.md)
