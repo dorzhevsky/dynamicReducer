@@ -1,4 +1,4 @@
-Dynamically attach [redux](https://redux.js.org/) reducers when component mounts, instead of loading them when application starts. This reduces the burden of maintaining long global list of reducers. 
+Dynamically attach [redux](https://redux.js.org/) reducers when component mounts, instead of loading them when application starts. This eliminates the burden of maintaining long global list of reducers. 
 
 ## Getting Started
 ```bash
