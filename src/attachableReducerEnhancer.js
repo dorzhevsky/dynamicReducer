@@ -3,7 +3,7 @@ import keys from "lodash/keys";
 import map from "lodash/map";
 import isFunction from "lodash/isFunction";
 import _combineAttachedReducers from "./combineAttachedReducers";
-import { ATTACHABLE_REDUCER_ATTACHED } from "./constants";
+import { ATTACHABLE_REDUCER_ATTACHED, KEY_PARTS_SEPARATOR } from "./constants";
 import wrapAttachedReducer from "./wrapAttachedReducer";
 
 const attachableReducerEnhancer = (
@@ -23,7 +23,7 @@ const attachableReducerEnhancer = (
       const { obj, path } = stack.pop();
       if (isFunction(obj)) {
         const reducerToAttach = obj;
-        const key = path.join(".");
+        const key = path.join(KEY_PARTS_SEPARATOR);
         if (attachedReducers.has(key)) {
           if (process.env.NODE_ENV !== "production") {
             console.warn(

@@ -4,6 +4,7 @@ import split from "lodash/split";
 import forEach from "lodash/forEach";
 import reduce from "lodash/reduce";
 import combineReducers from "./combineReducers";
+import { KEY_PARTS_SEPARATOR } from "./constants";
 
 const attachedReducersTree = () => {
 
@@ -40,7 +41,7 @@ const attachedReducersTree = () => {
   };
 
   const addReducer = (key, reducer) => {
-    const splitItems = split(key, ".");
+    const splitItems = split(key, KEY_PARTS_SEPARATOR);
     let parent = root;
     forEach(splitItems, e => {
       parent = _insertNodeIfNotExists(e, parent);
