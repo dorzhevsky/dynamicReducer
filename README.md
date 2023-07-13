@@ -111,3 +111,5 @@ export default attachReducer({path: { to: { store: { key: reducer }} })(YourComp
 ```
 
 ## Documentation
+
+![Documentation](https://github.com/dorzhevsky/dynamicReducer/blob/master/img/sample.png)
