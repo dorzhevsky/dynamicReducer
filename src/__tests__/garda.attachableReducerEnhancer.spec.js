@@ -10,14 +10,14 @@ const mockWrapAttachedReducer = jest.fn(() => identity);
 wrapAttachedReducer.mockImplementation(mockWrapAttachedReducer);
 
 describe("attachableReducerEnhancer", () => {
-  it("attachableReducerEnhancer должен обогащать стор доп. функцией attachReducer", () => {
+  it("attachableReducerEnhancer should enhance store with attachReducer function", () => {
     const reducer = state => state;
     const store = createStore(reducer, undefined, attachableReducerEnhancer());
     expect(store.attachReducer).toBeDefined();
   });
 
   const testAttachReducer = (attach, expectedKey) => {
-    it("Attach редьюсера", () => {
+    it("attachReducer", () => {
       const staticReducer = state => state;
       const combineAttachedReducers = jest.fn(() => identity);
       const combineAll = jest.fn(() => identity);

@@ -2,7 +2,7 @@ import constant from "lodash/constant";
 import combineAttachedReducers from "../combineAttachedReducers";
 
 describe("combineAttachedReducers", () => {
-  it("Рутовый узел с редьюсером и два дочерних узла с редьюсерами", () => {
+  it("Root node with reducer and 2 child nodes with reducers", () => {
     const map = {
       root: constant({ one: 1 }),
       "root.two": constant(2),
@@ -13,7 +13,7 @@ describe("combineAttachedReducers", () => {
     expect(state).toEqual({ root: { one: 1, two: 2, three: 3 } });
   });
 
-  it("Рутовый узел без редьюсера и два дочерних узла с редьюсерами", () => {
+  it("Root node without reducer and 2 child nodes with reducers", () => {
     const map = {
       "root.one": constant(1),
       "root.two": constant(2)
@@ -23,14 +23,14 @@ describe("combineAttachedReducers", () => {
     expect(state).toEqual({ root: { one: 1, two: 2 } });
   });
 
-  it("Рутовый узел c редьюсером и нет дочерних узлов", () => {
+  it("Root node with reducer", () => {
     const map = { root: constant(1) };
     const reducer = combineAttachedReducers(map);
     const state = reducer(undefined);
     expect(state).toEqual({ root: 1 });
   });
 
-  it("Пустая мапа", () => {
+  it("Empty map", () => {
     const map = {};
     const reducer = combineAttachedReducers(map);
     const state = reducer({ one: 1 });
