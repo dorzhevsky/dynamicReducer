@@ -1,7 +1,7 @@
 import isPlainObject from "lodash/isPlainObject";
 import { ATTACHABLE_REDUCER_ATTACHED, ATTACHABLE_REDUCER_INITIALSTATE } from "./constants";
 
-const createAttachedReducer = (key, reducer) => {
+const wrapAttachedReducer = (key, reducer) => {
   return (state, action) => {
     if (action.type === ATTACHABLE_REDUCER_ATTACHED) {
       if (key === action.key) {
@@ -16,4 +16,4 @@ const createAttachedReducer = (key, reducer) => {
   };
 };
 
-export default createAttachedReducer;
+export default wrapAttachedReducer;

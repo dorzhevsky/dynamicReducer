@@ -26,15 +26,15 @@ Note the `attachableReducerEnhancer` function takes options object as a paramete
     staticReducer,
     initialState,
     attachableReducerEnhancer({
-        createAttachedReducersReducer,
-        reduceReducers
+        combineAttachedReducers,
+        combineAll
     })
     );
 ```
 
-* `createAttachedReducersReducer` option is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs.
+* `combineAttachedReducers` option is a high order reducer which decides how to combine dynamically attached reducers with each other. It's passed the attached reducers as an object of key-reducer pairs.
 
-By default `createAttachedReducersReducer` high order reducer works the following way.
+By default `combineAttachedReducers` high order reducer works the following way.
 Imagine we have several dynamically attached reducers as key-reducer pairs.
 
 ```js
@@ -62,9 +62,9 @@ This tree data structure is then traversed to create reducer.
  )
 ```
 
-* `reduceReducers` option is also a high order reducer with the purpose of combining static reducer (the one you passed as the first option to `createStore` function) and the dynamic reducer returned from `createAttachedReducersReducer` call.
+* `combineAll` option is also a high order reducer with the purpose of combining static reducer (the one you passed as the first option to `createStore` function) and the dynamic reducer returned from `combineAttachedReducers` call.
 
-By default `reduceReducers` high order reducer uses `reduceReducers` function from [reduce-reducers](https://www.npmjs.com/package/reduce-reducers) package.
+By default `combineAll` high order reducer uses `reduceReducers` function from [reduce-reducers](https://www.npmjs.com/package/reduce-reducers) package.
 
 ### Redux DevTools
 If you're using redux devtools, it's **important to set `shouldHotReload` to false**.  This is because otherwise, redux devtools will re-dispatch previous actions when reducers are attached.
@@ -85,7 +85,7 @@ const store = createStore(reducer, composeEnhancers(
 ### Attaching your reducer
 After setting up the store, you can start attaching reducers using high order component `withReducer`.
 ```js
-import attachReducer from "redux-attachable-reducer";
+import { attachReducer } from "redux-attachable-reducer";
 
 class YourComponent extends React.Component {
  render() {
@@ -99,7 +99,7 @@ export default attachReducer({"path.to.store.key": reducer})(YourComponent)
 
 Or, using object as the first HOC parameter:
 ```js
-import attachReducer from "redux-attachable-reducer";
+import { attachReducer } from "redux-attachable-reducer";
 
 class YourComponent extends React.Component {
  render() {

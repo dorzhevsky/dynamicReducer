@@ -2,14 +2,14 @@ import _reduceReducers from "reduce-reducers";
 import keys from "lodash/keys";
 import map from "lodash/map";
 import isFunction from "lodash/isFunction";
-import _createAttachedReducersReducer from "./createAttachedReducersReducer";
+import _combineAttachedReducers from "./combineAttachedReducers";
 import { ATTACHABLE_REDUCER_ATTACHED } from "./constants";
-import createAttachedReducer from "./createAttachedReducer";
+import wrapAttachedReducer from "./wrapAttachedReducer";
 
 const attachableReducerEnhancer = (
-  { createAttachedReducersReducer, reduceReducers } = {
-    createAttachedReducersReducer: _createAttachedReducersReducer,
-    reduceReducers: _reduceReducers
+  { combineAttachedReducers, combineAll } = {
+    combineAttachedReducers: _combineAttachedReducers,
+    combineAll: _reduceReducers
   }
 ) => createStore => (reducer, ...other) => {
   const store = createStore(reducer, ...other);
@@ -32,10 +32,10 @@ const attachableReducerEnhancer = (
           }
           return;
         }
-        attachedReducers.set(key, createAttachedReducer(key, reducerToAttach));
-        const newReducer = reduceReducers(
+        attachedReducers.set(key, wrapAttachedReducer(key, reducerToAttach));
+        const newReducer = combineAll(
           reducer,
-          createAttachedReducersReducer(Object.fromEntries(attachedReducers))
+          combineAttachedReducers(Object.fromEntries(attachedReducers))
         );
         store.replaceReducer(newReducer);
         store.dispatch({ type: ATTACHABLE_REDUCER_ATTACHED, key });

@@ -58,7 +58,7 @@ class AttachedReducersTree {
   };
 }
 
-const createAttachedReducersReducer = map => {
+const combineAttachedReducers = map => {
   const k = keys(map);
   if (!k.length) {
     return noop;
@@ -70,4 +70,4 @@ const createAttachedReducersReducer = map => {
   return tree.createReducer();
 };
 
-export default createAttachedReducersReducer;
+export default combineAttachedReducers;

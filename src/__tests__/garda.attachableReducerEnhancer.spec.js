@@ -2,12 +2,12 @@ import { createStore } from "redux";
 import identity from "lodash/identity";
 import attachableReducerEnhancer from "../attachableReducerEnhancer";
 import { ATTACHABLE_REDUCER_ATTACHED } from "../constants";
-import createAttachedReducer from "../createAttachedReducer";
+import wrapAttachedReducer from "../wrapAttachedReducer";
 
-jest.mock("../createAttachedReducer");
+jest.mock("../wrapAttachedReducer");
 
-const mockCreateAttachedReducer = jest.fn(() => identity);
-createAttachedReducer.mockImplementation(mockCreateAttachedReducer);
+const mockWrapAttachedReducer = jest.fn(() => identity);
+wrapAttachedReducer.mockImplementation(mockWrapAttachedReducer);
 
 describe("attachableReducerEnhancer", () => {
   it("attachableReducerEnhancer должен обогащать стор доп. функцией attachReducer", () => {
@@ -19,14 +19,14 @@ describe("attachableReducerEnhancer", () => {
   const testAttachReducer = (attach, expectedKey) => {
     it("Attach редьюсера", () => {      
       const staticReducer = state => state;
-      const createAttachedReducersReducer = jest.fn(() => identity);
-      const reduceReducers = jest.fn(() => identity);
+      const combineAttachedReducers = jest.fn(() => identity);
+      const combineAll = jest.fn(() => identity);
       const store = createStore(
         staticReducer,
         undefined,
         attachableReducerEnhancer({
-          createAttachedReducersReducer,
-          reduceReducers
+          combineAttachedReducers,
+          combineAll
         })
       );
       store.replaceReducer = jest.fn();
@@ -36,15 +36,15 @@ describe("attachableReducerEnhancer", () => {
 
       attach(store, dynamicallyAttachedReducer);
 
-      expect(mockCreateAttachedReducer).toHaveBeenCalledWith(expectedKey, dynamicallyAttachedReducer);
-      expect(createAttachedReducersReducer).toHaveBeenCalledWith({
-        [expectedKey]: mockCreateAttachedReducer.mock.results[0].value
+      expect(mockWrapAttachedReducer).toHaveBeenCalledWith(expectedKey, dynamicallyAttachedReducer);
+      expect(combineAttachedReducers).toHaveBeenCalledWith({
+        [expectedKey]: mockWrapAttachedReducer.mock.results[0].value
       });
-      expect(reduceReducers).toHaveBeenCalledWith(
+      expect(combineAll).toHaveBeenCalledWith(
         staticReducer,
-        createAttachedReducersReducer.mock.results[0].value
+        combineAttachedReducers.mock.results[0].value
       );
-      expect(store.replaceReducer).toHaveBeenCalledWith(reduceReducers.mock.results[0].value);
+      expect(store.replaceReducer).toHaveBeenCalledWith(combineAll.mock.results[0].value);
       expect(store.dispatch).toHaveBeenCalledWith({
         type: ATTACHABLE_REDUCER_ATTACHED,
         key: expectedKey
