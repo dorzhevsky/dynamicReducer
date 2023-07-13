@@ -48,7 +48,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "redux": "^4.1.2",
-    "reduce-reducers" : "^1.0.4",
-    "react-redux" : "^8.1.1"    
+    "reduce-reducers": "^0.4.3",
+    "react-redux": "^8.1.1"   
   }
 }
