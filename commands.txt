@@ -1,0 +1,11 @@
+//Запустить verdaccio в докере
+docker run --name verdaccio --network host verdaccio/verdaccio
+
+//Паблиш пакета в verdaccio 
+npm publish --registry http://localhost:4873/
+
+//Инсталляция пакета из verdaccio-репозитория для его тестирования
+npm i redux-attachable-reducer --registry=http://localhost:4873/
+
+//Паблиш пакета в npm
+npm publish
