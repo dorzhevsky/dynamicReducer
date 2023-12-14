@@ -7,15 +7,6 @@ const attachReducer = reducer => Comp => {
     // eslint-disable-next-line camelcase
     UNSAFE_componentWillMount = () => {
       const { store, reducer: r } = this.props;
-
-      if (process.env.NODE_ENV !== "production") {
-        // eslint-disable-next-line no-console
-        console.assert(
-          store.attachReducer,
-          "'store.attachReducer' function is missing: Unable to attach reducer into the store."
-        );
-      }
-
       if (store.attachReducer) {
         store.attachReducer(r);
       }

@@ -25,11 +25,6 @@ const attachableReducerEnhancer = (
         const reducerToAttach = obj;
         const key = path.join(KEY_PARTS_SEPARATOR);
         if (attachedReducers.has(key)) {
-          if (process.env.NODE_ENV !== "production") {
-            console.warn(
-              `Reducer with the same key='${key}' was already attached. Ignoring attach attempt`
-            );
-          }
           return;
         }
         attachedReducers.set(key, wrapAttachedReducer(key, reducerToAttach));
