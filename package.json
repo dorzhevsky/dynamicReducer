@@ -1,6 +1,6 @@
 {
   "name": "redux-attachable-reducer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Dynamically attach redux reducers when component mounts, instead of loading them when application starts. This reduces the burden of maintaining long global list of reducers",
   "main": "lib/index.js",
   "repository": "git@github.com:dorzhevsky/redux-attachable-reducer.git",

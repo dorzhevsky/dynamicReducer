@@ -1,6 +1,9 @@
 //Запустить verdaccio в докере
 docker run --name verdaccio --network host verdaccio/verdaccio
 
+//Сбилдить
+npm run build
+
 //Паблиш пакета в verdaccio 
 npm publish --registry http://localhost:4873/
 
