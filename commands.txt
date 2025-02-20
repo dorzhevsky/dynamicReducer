@@ -12,3 +12,7 @@ npm i redux-attachable-reducer --registry=http://localhost:4873/
 
 //Паблиш пакета в npm
 npm publish
+
+//Тэги
+git tag v.0.0.3
+git push origin v.0.0.3
