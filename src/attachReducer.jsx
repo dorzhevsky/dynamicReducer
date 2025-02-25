@@ -3,8 +3,11 @@ import useAttachReducer from "./useAttachReducer";
 
 const attachReducer = reducer => Comp => {
   return props => {
-    const ret = useAttachReducer(reducer, props);
-    return <Comp {...props} {...ret} />;
+    const { ret, attached } = useAttachReducer(reducer, props);
+    if (attached) {
+      return <Comp {...props} {...ret} />;
+    }
+    return null;
   };
 };
 

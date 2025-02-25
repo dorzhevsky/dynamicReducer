@@ -1,14 +1,14 @@
 import { ReactReduxContext } from "react-redux";
 import isFunction from "lodash/isFunction";
 import isObject from "lodash/isObject";
-import { useContext, useRef } from "react";
-import useComponentWillMount from "./useComponentWillMount";
+import { useContext, useEffect, useRef, useState } from "react";
 
 const useAttachReducer = (reducer, ...args) => {
   const { store } = useContext(ReactReduxContext);
   const ret = useRef();
+  const [attached, setAttached] = useState(false);
 
-  useComponentWillMount(() => {
+  useEffect(() => {
     if (store.attachReducer) {
       if (isFunction(reducer)) {
         const val = reducer(store.attachReducer, ...args);
@@ -17,8 +17,10 @@ const useAttachReducer = (reducer, ...args) => {
         store.attachReducer(reducer);
       }
     }
-  });
-  return ret.current;
+    setAttached(true);
+  }, []);
+
+  return { ret: ret.current, attached };
 };
 
 export default useAttachReducer;
